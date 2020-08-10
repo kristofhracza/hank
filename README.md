@@ -7,7 +7,7 @@
  ### Usage: ```spy.py [username]```
  
  ## Modules:
- - Selenium ```pip install seelnium```
+ - Selenium ```pip install selenium```
  - time
  - sys
  
