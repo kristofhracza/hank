@@ -39,7 +39,7 @@ exceptions = ["Github", "Reddit", "Twitter", "Badoo", "Xbox", "Fiverr", "TikTok"
 
 ###### Setting up the chrome driver
 options = webdriver.ChromeOptions()
-#options.add_argument('headless')
+options.add_argument('headless')
 options.add_argument('--log-level=3')
 driver = webdriver.Chrome(options=options, executable_path=r'chromedriver.exe')
 print("\n")
