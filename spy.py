@@ -63,6 +63,11 @@ for i in sites:
       # If the name contains anything from notAllowed
       if state == "Fail": 
         print("[-] " + i + ":" + " Not Found!")
+      elif state != "Fail": 
+        if "not found" in driver.page_source:
+          print("[-] " + i + ":" + " Not Found!")
+        else:
+          print("[+] " + i + ":" + " " + sites[i])
       else:
         print("[+] " + i + ":" + " " + sites[i])
     #######################################
@@ -83,7 +88,7 @@ for i in sites:
       else:
         print("[+] " + i + ":" + " " + sites[i])
     #######################################
-    # For BADOO
+    # BADOO
     elif i == "Badoo":
       # title of the page
       if "<title>Badoo" in driver.page_source:
@@ -91,7 +96,7 @@ for i in sites:
       else:
         print("[+] " + i + ":" + " " + sites[i])
     #######################################
-     # For XBOX
+     # XBOX
     elif i == "Xbox":
       # title of the page
       if "doesn't exist" in driver.page_source:
@@ -99,7 +104,7 @@ for i in sites:
       else:
         print("[+] " + i + ":" + " " + sites[i])
     #######################################
-     # For FIVERR
+     # FIVERR
     elif i == "Fiverr":
       # title of the page
       if "no longer available" in driver.page_source:
