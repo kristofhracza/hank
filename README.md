@@ -24,7 +24,6 @@
     "Xbox": "https://xboxgamertag.com/search/",
     "Badoo": "https://badoo.com/",
     "Pinterest": "https://www.pinterest.com/",
-    "Fiverr": "https://www.fiverr.com/",
     "TikTok": "https://www.tiktok.com/@",
     "SoundCloud": "https://soundcloud.com/",
     "R6Tab": "https://tabstats.com/siege/search/uplay/",
