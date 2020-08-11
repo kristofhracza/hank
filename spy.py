@@ -26,7 +26,6 @@ sites = {
     "Xbox": "https://xboxgamertag.com/search/",
     "Badoo": "https://badoo.com/",
     "Pinterest": "https://www.pinterest.com/",
-    "Fiverr": "https://www.fiverr.com/",
     "TikTok": "https://www.tiktok.com/@",
     "SoundCloud": "https://soundcloud.com/",
     "R6Tab": "https://tabstats.com/siege/search/uplay/",
@@ -35,7 +34,7 @@ sites = {
 notAllowed = [".","/","_","?","!",","]
 state = "Pass"
 # Sites that are needed to be individually looked through
-exceptions = ["Github", "Reddit", "Twitter", "Badoo", "Xbox", "Fiverr", "TikTok", "SoundCloud", "R6Tab"]
+exceptions = ["Github", "Reddit", "Twitter", "Badoo", "Xbox", "TikTok", "SoundCloud", "R6Tab"]
 
 ###### Setting up the chrome driver
 options = webdriver.ChromeOptions()
@@ -63,6 +62,7 @@ for i in sites:
       # If the name contains anything from notAllowed
       if state == "Fail": 
         print("[-] " + i + ":" + " Not Found!")
+        # If the name does not contain anything from notAllowed
       elif state != "Fail": 
         if "not found" in driver.page_source:
           print("[-] " + i + ":" + " Not Found!")
@@ -98,23 +98,14 @@ for i in sites:
     #######################################
      # XBOX
     elif i == "Xbox":
-      # title of the page
+      # message
       if "doesn't exist" in driver.page_source:
-          print("[-] " + i + ":" + " Not Found!")
-      else:
-        print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-     # FIVERR
-    elif i == "Fiverr":
-      # title of the page
-      if "no longer available" in driver.page_source:
           print("[-] " + i + ":" + " Not Found!")
       else:
         print("[+] " + i + ":" + " " + sites[i])
     #######################################
      # TIKTOK
     elif i == "TikTok":
-      # title of the page
       try:
         # Look "4" from 404 error
         if driver.find_element_by_class_name("jsx-1194703849.jsx-1128529014"):
