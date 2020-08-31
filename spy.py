@@ -1,152 +1,63 @@
 # User name lookup by IVBecy
 ##### Getting module(s)
-from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+import requests
 import time
 import sys
 
-##### Variables
-# Input
 ## Help
 if sys.argv[1] == "-h":
   print("""
     Usage: spy.py [username]
     """)
   sys.exit()
-uname = sys.argv[1] 
+# Input
+uname = sys.argv[1]
+
+##### Variables
 # Sites
 sites = {
     "Reddit": "https://www.reddit.com/user/",
     "Github": "https://github.com/",
     "Facebook": "https://www.facebook.com/",
     "Instagram": "https://www.instagram.com/",
-    "Twitter": "https://twitter.com/",
-    "Twitch": "https://www.twitch.tv/",
     "Wordpress": "https://profiles.wordpress.org/",
     "Xbox": "https://xboxgamertag.com/search/",
     "Badoo": "https://badoo.com/",
     "Pinterest": "https://www.pinterest.com/",
-    "TikTok": "https://www.tiktok.com/@",
     "SoundCloud": "https://soundcloud.com/",
-    "R6Tab": "https://tabstats.com/siege/search/uplay/",
+    "TryHackMe": "https://tryhackme.com/p/",
+    "Patreon": "https://www.patreon.com/",
+    "CodePen": "https://codepen.io/",
+    "PasteBin":"https://pastebin.com/u/",
+    "Spotify":"https://open.spotify.com/user/",
+    "Tellonym": "https://tellonym.me/",
+    "Youtube": "https://www.youtube.com/",
+    "AboutMe": "https://about.me/",
+    "IFTT": "https://www.ifttt.com/p/",
+    "MySpace": "https://myspace.com/",
+    "PCPartPicker": "https://pcpartpicker.com/user/"
 }
-# Github uname check
-notAllowed = [".","/","_","?","!",","]
-state = "Pass"
-# Sites that are needed to be individually looked through
-exceptions = ["Github", "Reddit", "Twitter", "Badoo", "Xbox", "TikTok", "SoundCloud", "R6Tab"]
 
-###### Setting up the chrome driver
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('--log-level=3')
-driver = webdriver.Chrome(options=options, executable_path=r'chromedriver.exe')
-print("\n")
-print("Username:  " + uname)
-print("\n")
+# Headers 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+}
 
-#Checking for uname content (GITHUB)
-for i in notAllowed:
-  if i in uname:
-    state = "Fail"
+# Info
+print("\n")
+print("Username: " + uname)
+print("\n")
 
 #### Appending username to all sites + checking
 for i in sites:
   sites[i] = sites[i] + uname
-  driver.get(sites[i])
-  time.sleep(1) 
-  ################### EXCEPTIONS ######################
-  if i in exceptions:
-      # GITHUB
-    if i == "Github":
-      # If the name contains anything from notAllowed
-      if state == "Fail": 
-        print("[-] " + i + ":" + " Not Found!")
-        # If the name does not contain anything from notAllowed
-      elif state != "Fail": 
-        if "not found" in driver.page_source:
-          print("[-] " + i + ":" + " Not Found!")
-        else:
-          print("[+] " + i + ":" + " " + sites[i])
-      else:
-        print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-    # TWITTER
-    elif i == "Twitter":
-      try:
-        # Look for background image
-        if driver.find_element_by_class_name("css-9pa8cd"):
-          print("[+] " + i + ":" + " " + sites[i])
-      except NoSuchElementException:
-        print("[-] " + i + ":" + " Not Found!")
-    #######################################
-    # REDDIT
-    elif i == "Reddit":
-      # Title of the page
-      if "reddit: the front page of the internet" in driver.page_source:
-          print("[-] " + i + ":" + " Not Found!")
-      else:
-        print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-    # BADOO
-    elif i == "Badoo":
-      # title of the page
-      if "<title>Badoo" in driver.page_source:
-          print("[-] " + i + ":" + " Not Found!")
-      else:
-        print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-     # XBOX
-    elif i == "Xbox":
-      # message
-      if "doesn't exist" in driver.page_source:
-          print("[-] " + i + ":" + " Not Found!")
-      else:
-        print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-     # TIKTOK
-    elif i == "TikTok":
-      try:
-        # Look "4" from 404 error
-        if driver.find_element_by_class_name("jsx-1194703849.jsx-1128529014"):
-          print("[-] " + i + ":" + " Not Found!")
-      except NoSuchElementException:
-          print("[+] " + i + ":" + " " + sites[i])
-     #######################################
-     # SOUNDCLOUD
-    elif i == "SoundCloud":
-      try:
-        # Look for "We cant find that user"
-        if driver.find_element_by_class_name("errorTitle"):
-          print("[-] " + i + ":" + " Not Found!")
-      except NoSuchElementException:
-          print("[+] " + i + ":" + " " + sites[i])
-    #######################################
-     # R6TAB
-    elif i == "R6Tab":
-      # Look for "We cant find that user"
-      if "No profiles found" in driver.page_source:
-        print("[-] " + i + ":" + " Not Found!")
-      else:
-         print("[+] " + i + ":" + " " + sites[i])
-  #############################################################
+  req = requests.get(sites[i], headers=headers)
+  if req.status_code == 200:
+    print(f"[+] {i}: {sites[i]}")
+  elif req.status_code == 404:
+    print(f"[-] {i}: Not Found")
   else:
-    ### Not found pages detection (General pages [no exceptions])
-    if "not found" in driver.page_source:
-      print("[-] " + i + ":" +  " Not Found!" )
-
-    elif "not-found" in driver.page_source:
-      print("[-] " + i + ":" + " Not Found!")
-
-    elif "Not Found" in driver.page_source:
-      print("[-] " + i + ":" + " Not Found!")
-
-    elif "Not-Found" in driver.page_source:
-      print("[-] " + i + ":" + " Not Found!")
-
-    else:
-      print("[+] " + i + ":" + " " + sites[i])
-print("\n")
-driver.quit()
+    print(f"[-] {i}: Error: {req.status_code}")
+ 
 
 
