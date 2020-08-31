@@ -7,25 +7,32 @@
  ### Usage: ```spy.py [username]```
  
  ## Modules:
- - Selenium ```pip install selenium```
+ - Requests ```pip install requests```
  - time
  - sys
  
  ## Sites:
  ```python
- sites = {
+sites = {
     "Reddit": "https://www.reddit.com/user/",
     "Github": "https://github.com/",
     "Facebook": "https://www.facebook.com/",
     "Instagram": "https://www.instagram.com/",
-    "Twitter": "https://twitter.com/",
-    "Twitch": "https://www.twitch.tv/",
     "Wordpress": "https://profiles.wordpress.org/",
     "Xbox": "https://xboxgamertag.com/search/",
     "Badoo": "https://badoo.com/",
     "Pinterest": "https://www.pinterest.com/",
-    "TikTok": "https://www.tiktok.com/@",
     "SoundCloud": "https://soundcloud.com/",
-    "R6Tab": "https://tabstats.com/siege/search/uplay/",
+    "TryHackMe": "https://tryhackme.com/p/",
+    "Patreon": "https://www.patreon.com/",
+    "CodePen": "https://codepen.io/",
+    "PasteBin":"https://pastebin.com/u/",
+    "Spotify":"https://open.spotify.com/user/",
+    "Tellonym": "https://tellonym.me/",
+    "Youtube": "https://www.youtube.com/",
+    "AboutMe": "https://about.me/",
+    "IFTT": "https://www.ifttt.com/p/",
+    "MySpace": "https://myspace.com/",
+    "PCPartPicker": "https://pcpartpicker.com/user/"
 }
  ```
