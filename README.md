@@ -8,6 +8,7 @@
  
  ## Modules:
  - Requests ```pip install requests```
+ - OptionParser ```pip install optparse-pretty ```
  - time
  - sys
  
