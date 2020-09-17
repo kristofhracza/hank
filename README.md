@@ -43,3 +43,5 @@ sites = {
 
 ## Testing
 This project was tested on Windows and Ubuntu with Python3.8, Python3.6 and pypy3
+
+You can see the result of the two benchmarks (pypy vs python) in the benchmarks folder.
