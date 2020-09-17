@@ -7,13 +7,10 @@
  ### Usage: ```spy.py [username]```
  
  ## Modules:
- - Requests ```pip install requests```
- - OptionParser ```pip install optparse-pretty ```
- - time
- - sys
- - threading
+Just type into your console `pip install -r requirements.txt`
  
  ## Sites:
+ You can add sites in the config.json file!
  ```python
 sites = {
   "AboutMe": "https://about.me/",
@@ -43,3 +40,6 @@ sites = {
   "Youtube": "https://www.youtube.com/",
 }
  ```
+
+## Testing
+This project was tested on Windows and Ubuntu with Python3.8, Python3.6 and pypy3
