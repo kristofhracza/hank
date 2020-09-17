@@ -1,6 +1,8 @@
 ##### Getting module(s)
 import requests
 import sys
+import threading
+import time
 from optparse import OptionParser
 
 # method to be called when the user asks for help
@@ -79,37 +81,46 @@ headers = {
 }
 
 # Info
-print("\n")
 print("""
-  ===================================
-  ||    ----USERNAME LOOKUP----    ||
-  ||-------------------------------||
-  ||        Creator: IVBecy        ||
-  ||-------------------------------||
-  || Inspired by sherlock-project  ||
-  ||-------------------------------||
-  ===================================
+ _____                               
+/  ___|                              
+\ `--. _ __  _   _       _ __  _   _ 
+ `--. \ '_ \| | | |     | '_ \| | | |
+/\__/ / |_) | |_| |  _  | |_) | |_| |
+\____/| .__/ \__, | (_) | .__/ \__, |
+      | |     __/ |     | |     __/ |
+      |_|    |___/      |_|    |___/ 
+      
 """)
 print(f"Username: {options.uname}")
 print("\n")
 
+
 #### Appending username to all sites + checking
-for i in sites:
-  sites[i] = sites[i].format(options.uname)
-  if i == "Twitter":
-    req = requests.get(sites[i])
+def siteLookup(site, url):
+  if site == "Twitter":
+    req = requests.get(url)
   else:
-    req = requests.get(sites[i], headers=headers)
+    req = requests.get(url, headers=headers)
   if req.status_code == 200:
-    print(f"[+] {i}: {sites[i]}")
+    print(f"[+] {site}: {url}")
     # If we need to write to a file
     if options.fileName:
       f = open(options.fileName, "a")
-      f.write(f"{i}: {sites[i]}")
+      f.write(f"{site}: {url}")
       f.write("\n")
   elif req.status_code == 404:
-    print(f"[-] {i}: Not Found")
+    print(f"[-] {site}: Not Found")
   else:
-    print(f"[-] {i}: Error: {req.status_code} {req.reason}")
+    print(f"[-] {site}: Error: {req.status_code} {req.reason}")
+
+#Running the username check with threading
+for i in sites:
+  sites[i] = sites[i].format(options.uname)
+  thread = threading.Thread(target=siteLookup, args=(i,sites[i],))
+  thread.daemon = True
+  thread.start()
+  time.sleep(0.2)
+
 
 
