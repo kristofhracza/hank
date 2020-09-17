@@ -80,6 +80,8 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 }
 
+matchedSites = {}
+
 # Info
 print("""
  _____                               
@@ -95,7 +97,6 @@ print("""
 print(f"Username: {options.uname}")
 print("\n")
 
-
 #### Appending username to all sites + checking
 def siteLookup(site, url):
   if site == "Twitter":
@@ -103,24 +104,28 @@ def siteLookup(site, url):
   else:
     req = requests.get(url, headers=headers)
   if req.status_code == 200:
-    print(f"[+] {site}: {url}")
+    if site in matchedSites.values():
+      pass
+    else:
+      matchedSites[site] = url
     # If we need to write to a file
     if options.fileName:
       f = open(options.fileName, "a")
       f.write(f"{site}: {url}")
       f.write("\n")
-  elif req.status_code == 404:
-    print(f"[-] {site}: Not Found")
-  else:
-    print(f"[-] {site}: Error: {req.status_code} {req.reason}")
 
 #Running the username check with threading
-for i in sites:
-  sites[i] = sites[i].format(options.uname)
-  thread = threading.Thread(target=siteLookup, args=(i,sites[i],))
-  thread.daemon = True
-  thread.start()
-  time.sleep(0.2)
+for i in range(2):
+  for i in sites:
+    sites[i] = sites[i].format(options.uname)
+    thread = threading.Thread(target=siteLookup, args=(i,sites[i],))
+    thread.daemon = True
+    thread.start()
+    time.sleep(0.1)
+
+for index in matchedSites:
+  print(f"{index}: {matchedSites[index]}")
+print("\n")
 
 
 
