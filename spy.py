@@ -64,17 +64,19 @@ print(f"Username: {options.uname}\n")
 
 #### Appending username to all sites + checking
 def siteLookup(site, url):
-  #Twitter block headers
-  if site == "Twitter":
-    req = requests.get(url)
-  else:
-    req = requests.get(url, headers=headers)
-  if req.status_code == 200:
-    if site in matchedSites.values():
-      pass
+  try:
+    if site == "Twitter":
+      req = requests.get(url)
     else:
-      matchedSites[site] = url
-
+      req = requests.get(url, headers=headers)
+    if req.status_code == 200:
+      if site in matchedSites.values():
+        pass
+      else:
+        matchedSites[site] = url
+  # on SSL error if the website is blocked
+  except requests.exceptions.SSLError:
+    print(f"[!] {site} is unreachable, might be blocked")
 #Running the username check with threading
 for iterator in range(2):
   for i in sites:
@@ -85,6 +87,7 @@ for iterator in range(2):
     time.sleep(0.1)
 
 # Loop through the found sites
+print(f"\nUsername: {options.uname} found at {len(matchedSites)} sites\n")
 for index in matchedSites:
   print(f"{index}: {matchedSites[index]}")
   # If we need to write to a file
