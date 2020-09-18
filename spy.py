@@ -3,6 +3,7 @@ import requests
 import sys
 import threading
 import time
+import json
 from optparse import OptionParser
 
 # method to be called when the user asks for help
@@ -10,17 +11,16 @@ def usage():
   print("""
   
     Usage: spy.py  -u [username] -f [file name]
-
+    
     REQUIRED:
       -u or --username: Username of the victim
-
+    
     OPTIONAL:
       -f or --file: the file to output the results into
-
   """)
   sys.exit()
 
-#Setting up the options for the terminal
+# Setting up the options for the terminal
 parser = OptionParser()
 parser.set_conflict_handler("resolve")
 parser.add_option("-u", "--username",dest="uname")
@@ -28,52 +28,18 @@ parser.add_option("-h", "--help", dest="help", action="store_true")
 parser.add_option("-f", "--file", dest="fileName")
 (options, args) = parser.parse_args()
 
+# Run the help menu
+### If the username is not defined
+if options.uname == None or options.help:
+  usage()
 # If the username is set, the help menu cannot be shown (if called at the same time)
 if options.uname:
   options.help = None
 
-# Run the help menu
-### If the username is not defined
-if options.uname == None:
-  usage()
-### If the user has asked for help
-if options.help:
-  usage()
-
 ##### Variables
-# Sites
-sites = {
-  "AboutMe": "https://about.me/{}",
-  "Badoo": "https://badoo.com/{}",
-  "BitBucket": "https://bitbucket.org/{}",
-  "Chess": "https://www.chess.com/member/{}",
-  "Codecademy": "https://www.codecademy.com/profiles/{}",
-  "CodePen": "https://codepen.io/{}",
-  "DevCommunity": "https://dev.to/{}",
-  "Discogs": "https://www.discogs.com/user/{}",
-  "Ello": "https://ello.co/{}",
-  "Github": "https://github.com/{}",
-  "IFTTT": "https://www.ifttt.com/p/{}",
-  "Instagram": "https://www.instagram.com/{}",
-  "Keybase": "https://keybase.io/{}",
-  "MySpace": "https://myspace.com/{}",
-  "PasteBin": "https://pastebin.com/u/{}",
-  "Patreon": "https://www.patreon.com/{}",
-  "PCPartPicker": "https://pcpartpicker.com/user/{}",
-  "Pinterest": "https://www.pinterest.com/{}",
-  "Reddit": "https://www.reddit.com/user/{}",
-  "SourceForge": "https://sourceforge.net/u/{}",
-  "SoundCloud": "https://soundcloud.com/{}",
-  "Spotify": "https://open.spotify.com/user/{}",
-  "Tellonym": "https://tellonym.me/{}",
-  "TryHackMe": "https://tryhackme.com/p/{}",
-  "Twitch": "https://m.twitch.tv/{}",
-  "Twitter": "https://mobile.twitter.com/{}",
-  "Unsplash": "https://unsplash.com/@{}",
-  "Wordpress": "https://profiles.wordpress.org/{}",
-  "Xbox": "https://xboxgamertag.com/search/{}",
-  "Youtube": "https://www.youtube.com/{}",
-}
+# Sites from the json file
+with open("sites.json") as config:
+  sites = json.load(config)
 
 # Headers 
 headers = {
@@ -94,11 +60,11 @@ print("""
       |_|    |___/      |_|    |___/ 
       
 """)
-print(f"Username: {options.uname}")
-print("\n")
+print(f"Username: {options.uname}\n")
 
 #### Appending username to all sites + checking
 def siteLookup(site, url):
+  #Twitter block headers
   if site == "Twitter":
     req = requests.get(url)
   else:
@@ -108,14 +74,9 @@ def siteLookup(site, url):
       pass
     else:
       matchedSites[site] = url
-    # If we need to write to a file
-    if options.fileName:
-      f = open(options.fileName, "a")
-      f.write(f"{site}: {url}")
-      f.write("\n")
 
 #Running the username check with threading
-for i in range(2):
+for iterator in range(2):
   for i in sites:
     sites[i] = sites[i].format(options.uname)
     thread = threading.Thread(target=siteLookup, args=(i,sites[i],))
@@ -123,9 +84,11 @@ for i in range(2):
     thread.start()
     time.sleep(0.1)
 
+# Loop through the found sites
 for index in matchedSites:
   print(f"{index}: {matchedSites[index]}")
+  # If we need to write to a file
+  if options.fileName:
+    f = open(options.fileName, "a")
+    f.write(f"{index}: {matchedSites[index]}\n")
 print("\n")
-
-
-
