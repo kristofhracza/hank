@@ -1,10 +1,10 @@
 {
   "AboutMe": "https://about.me/{}",
+  "Badoo": "https://badoo.com/{}",
   "BitBucket": "https://bitbucket.org/{}",
   "BuyMeACoffe":"https://buymeacoff.ee/{}",
   "BuzzFeed":"https://buzzfeed.com/{}",
   "Chess": "https://www.chess.com/member/{}",
-  "Codecademy": "https://www.codecademy.com/profiles/{}",
   "CodePen": "https://codepen.io/{}",
   "CloudFareCommunity":"https://community.cloudflare.com/u/{}",
   "DevCommunity": "https://dev.to/{}",

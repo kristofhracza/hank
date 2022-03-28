@@ -6,7 +6,7 @@ import time
 import json
 from optparse import OptionParser
 
-# method to be called when the user asks for help
+# Help
 def usage():
   print("""
   
@@ -29,14 +29,11 @@ parser.add_option("-f", "--file", dest="fileName")
 (options, args) = parser.parse_args()
 
 # Run the help menu
-### If the username is not defined
 if options.uname == None or options.help:
   usage()
-# If the username is set, the help menu cannot be shown (if called at the same time)
 if options.uname:
   options.help = None
 
-##### Variables
 # Sites from the json file
 with open("sites.json") as config:
   sites = json.load(config)
@@ -62,7 +59,7 @@ print("""
 """)
 print(f"Username: {options.uname}\n")
 
-#### Appending username to all sites + checking
+# Appending username to all sites + checking
 def siteLookup(site, url):
   try:
     if site == "Twitter":
@@ -87,7 +84,7 @@ for iterator in range(2):
     time.sleep(0.1)
 
 # Loop through the found sites
-print(f"\nUsername: {options.uname} found at {len(matchedSites)} sites\n")
+print(f"\nFound {len(matchedSites)} sites\n")
 for index in matchedSites:
   print(f"{index}: {matchedSites[index]}")
   # If we need to write to a file
