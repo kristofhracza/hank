@@ -1,11 +1,9 @@
-# Username Lookup
+# Binoculars
+Username lookup
 
- #### This is a program that looks up, one specific username on many websites.
- ### Preview
- ![Preview](uname.png)
+ ### Usage: 
+ ```bino.py --help```
  
- ### Usage: ```spy.py [username]```
- 
- ## Modules:
- Get all the modules by ``` pip install -r requirements.txt ```
+ ### Libs:
+``` pip install -r requirements.txt ```
  
