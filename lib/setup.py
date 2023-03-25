@@ -3,7 +3,7 @@ from optparse import OptionParser
  # Help
 def usage():
     print("""
-        Usage: spy.py  -u [username] -f [file name]
+        Usage: bino.py  -u [username] -f [file name]
         
         REQUIRED:
         -u or --username
