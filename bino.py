@@ -1,26 +1,17 @@
 from lib.setup import *
 
 SITES,OPTIONS = make()
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
-}
 matched_sites = {}
 
 def siteLookup(site, url):
   if OPTIONS.verbose:
     print(f"[*] {site} : {url}")
   try:
-    if site == "Twitter":
-      req = requests.get(url)
-    else:
-      req = requests.get(url, headers=HEADERS)
+    req = requests.get(url,allow_redirects=True)
     if req.status_code == 200:
-      if site in matched_sites.values():
-        pass
-      else:
-        matched_sites[site] = url
+      matched_sites[site] = url
   except requests.exceptions.SSLError:
-    print(f"[!] {site} is unreachable, might be blocked")
+    print(f"[!] {site} SSL error")
 
 def pretty():
   for index in matched_sites:

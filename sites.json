@@ -12,6 +12,7 @@
   "Ello": "https://ello.co/{}",
   "Fandom":"https://www.fandom.com/u/{}",
   "Github": "https://github.com/{}",
+  "Gitlab": "https://gitlab.com/{}",
   "Hackaday":"https://hackaday.io/{}",
   "IFTTT": "https://www.ifttt.com/p/{}",
   "Instagram": "https://www.instagram.com/{}",
@@ -32,5 +33,5 @@
   "Unsplash": "https://unsplash.com/@{}",
   "Wordpress": "https://profiles.wordpress.org/{}",
   "Xbox": "https://xboxgamertag.com/search/{}",
-  "Youtube": "https://www.youtube.com/{}"
+  "Youtube": "https://www.youtube.com/{}",
 }
