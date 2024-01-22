@@ -10,14 +10,9 @@ def siteLookup(site, url):
   if OPTIONS.verbose:
     print(f"[*] {site} : {url}")
   try:
-    if site == "Twitter":
-      req = requests.get(url)
-    else:
-      req = requests.get(url, headers=HEADERS)
+    req = requests.get(url, headers=HEADERS)
     if req.status_code == 200:
-      if site in matched_sites.values():
-        pass
-      else:
+      if site not in matched_sites.values():
         matched_sites[site] = url
   except requests.exceptions.SSLError:
     print(f"[!] {site} is unreachable, might be blocked")
