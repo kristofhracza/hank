@@ -1,9 +1,21 @@
 # Binoculars
-Username lookup
+Username lookup accross social networks
 
- ### Usage: 
- ```bino.py --help```
+## Usage: 
+```
+kristof@Kali:$~ python bino.py --help
+
+        Usage: bino.py  -u [username] -f [file name]
+
+        REQUIRED:
+        -u or --username
+
+        OPTIONAL:
+        -f or --file:           Output file
+        -v or --verbose:        Verbose output
+```
  
- ### Libs:
-``` pip install -r requirements.txt ```
- 
+### Dependencies:
+```
+pip install -r requirements.txt
+```

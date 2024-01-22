@@ -13,7 +13,6 @@ def site_lookup():
     try:
       req = requests.get(url, headers={"User-Agent":choice(UA)})
       if req.status_code == 200:
-        if site not in matched_sites.values():
           matched_sites[site] = url
       if OPTIONS.verbose:
         print(f"[*] {site}:\t{url}")
