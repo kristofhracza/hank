@@ -10,15 +10,16 @@ matched_sites = {}
 def site_lookup():
   for site in SITES:
     url = SITES[site].format(OPTIONS.user_name)
-    if OPTIONS.verbose:
-      print(f"[*] {site}:\t{url}")
     try:
       req = requests.get(url, headers={"User-Agent":choice(UA)})
       if req.status_code == 200:
         if site not in matched_sites.values():
           matched_sites[site] = url
+      if OPTIONS.verbose:
+        print(f"[*] {site}:\t{url}")
     except requests.exceptions.SSLError:
-      print(f"[!] {site} is unreachable, might be blocked")
+      if OPTIONS.verbose:
+        print(f"[!]{url} -- requests.exceptions.SSLError")
     
 
 # Logging
