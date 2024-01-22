@@ -40,16 +40,16 @@ def make():
     # Setting up the options for the terminal
     parser = OptionParser()
     parser.set_conflict_handler("resolve")
-    parser.add_option("-u", "--username",dest="uname")
+    parser.add_option("-u", "--username",dest="user_name")
     parser.add_option("-h", "--help", dest="help", action="store_true")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
-    parser.add_option("-f", "--file", dest="fileName")
+    parser.add_option("-f", "--file", dest="file_name")
     (options, args) = parser.parse_args()
 
     # Run the help menu
-    if options.uname == None or options.help:
+    if options.user_name == None or options.help:
         usage()
-    if options.uname:
+    if options.user_name:
         options.help = None
 
     # Sites from the json file
