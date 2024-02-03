@@ -11,7 +11,7 @@ def site_lookup():
   for site in SITES:
     url = SITES[site].format(OPTIONS.user_name)
     try:
-      req = requests.get(url, headers={"User-Agent":choice(UA)})
+      req = requests.get(url, headers={"User-Agent":choice(UA)},allow_redirects=False)
       if req.status_code == 200:
           matched_sites[site] = url
       if OPTIONS.verbose:
