@@ -37,7 +37,6 @@ def usage():
     sys.exit()
 
 def make():
-    # Setting up the options for the terminal
     parser = OptionParser()
     parser.set_conflict_handler("resolve")
     parser.add_option("-u", "--username",dest="user_name")
@@ -52,7 +51,6 @@ def make():
     if options.user_name:
         options.help = None
 
-    # Sites from the json file
     with open("sites.json") as config:
         sites = json.load(config)
     return sites,options

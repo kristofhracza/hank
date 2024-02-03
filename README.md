@@ -3,7 +3,7 @@ Username lookup accross social networks
 
 ## Usage: 
 ```
-kristof@Kali:$~ python bino.py --help
+python bino.py --help
 
         Usage: bino.py  -u [username] -f [file name]
 
@@ -19,3 +19,6 @@ kristof@Kali:$~ python bino.py --help
 ```
 pip install -r requirements.txt
 ```
+
+## To-Do:
+- Fix false 200 codes
