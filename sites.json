@@ -28,9 +28,21 @@
   "Tellonym": "https://tellonym.me/{}",
   "TryHackMe": "https://tryhackme.com/p/{}",
   "Twitch": "https://m.twitch.tv/{}",
-  "Twitter": "https://mobile.twitter.com/{}",
+  "Twitter (X)": "https://twitter.com/{}",
   "Unsplash": "https://unsplash.com/@{}",
   "Wordpress": "https://profiles.wordpress.org/{}",
   "Xbox": "https://xboxgamertag.com/search/{}",
-  "Youtube": "https://www.youtube.com/{}"
+  "Youtube": "https://www.youtube.com/{}",
+  "TikTok": "https:/tiktok.com/@{}",
+  "7cups":"https://www.7cups.com/@{}",
+  "9gag":"https://www.9gag.com/u/{}",
+  "APClips":"https://apclips.com/{}",
+  "AllMyLinks":"https://allmylinks.com/{}",
+  "LinkTree":"https://linktr.ee/{}",
+  "Apple Discussions":"https://discussions.apple.com/profile/{}",
+  "Apple Developer":"https://developer.apple.com/forums/profile/{}",
+  "AskFM":"https://ask.fm/{}",
+  "BodySpace":"https://bodyspace.bodybuilding.com/{}",
+  "BongaCams":"https://pt.bongacams.com/profile/{}",
+  "BuzzFeed":"https://buzzfeed.com/{}"
 }

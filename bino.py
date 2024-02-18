@@ -17,10 +17,9 @@ def site_lookup():
           print(f"[*] {site}:\t{url}")
       if OPTIONS.verbose and req.status_code != 200:
         print(f"[-] {site}:\t{url}")
-    except requests.exceptions.SSLError:
+    except:
       if OPTIONS.verbose:
-        print(f"[!]{url} -- SSL Error")
-    
+        print(f"[-] {site}:\t{url}")
 
 # Logging
 def site_log():
