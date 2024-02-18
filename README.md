@@ -1,5 +1,5 @@
 # Hank
-The commonn man's OSINT tools
+The common man's OSINT tools
 
 ## Usage
 ```
