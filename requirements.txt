@@ -1,2 +1,3 @@
-requests~=2.22.0
-optparse-pretty==0.1.1
+requests
+optparse-pretty
+beautifulsoup4

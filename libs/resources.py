@@ -1,8 +1,13 @@
-import requests,sys,time,json
-from optparse import OptionParser
+"""
 
-# User-Agents
-UA = [
+Sharing variables or helper functions
+
+"""
+
+import requests, json, re, random
+from bs4 import BeautifulSoup
+
+USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.3",
@@ -22,35 +27,43 @@ UA = [
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
 ]
 
- # Helps
+banner = """
+ 
+     /$$   /$$                     /$$      
+    | $$  | $$                    | $$      
+    | $$  | $$  /$$$$$$  /$$$$$$$ | $$   /$$
+    | $$$$$$$$ |____  $$| $$__  $$| $$  /$$/
+    | $$__  $$  /$$$$$$$| $$  \ $$| $$$$$$/ 
+    | $$  | $$ /$$__  $$| $$  | $$| $$_  $$ 
+    | $$  | $$|  $$$$$$$| $$  | $$| $$ \  $$
+    |__/  |__/ \_______/|__/  |__/|__/  \__/
+
+
+
+"""
+
+search_engine_banner = """
+
+========================[ Search Engine Enumeration ] ========================
+We shall tread lightly...
+        
+"""
+
+site_lookup_banner = """
+
+========================[ Site Lookup ] ========================
+
+"""
+
 def usage():
     print("""
-        Usage: bino.py  -u [username] -f [file name]
+        Usage: hank.py -u [username] -r [other names]
         
         REQUIRED:
         -u or --username
-        
+        -r or --real-name
+
         OPTIONAL:
-        -f or --file:\tOutput file
-        -v or --verbose:\tVerbose output
+        -c or --count\t[Iteration count]
     """)
-    sys.exit()
-
-def make():
-    parser = OptionParser()
-    parser.set_conflict_handler("resolve")
-    parser.add_option("-u", "--username",dest="user_name")
-    parser.add_option("-h", "--help", dest="help", action="store_true")
-    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
-    parser.add_option("-f", "--file", dest="file_name")
-    (options, args) = parser.parse_args()
-
-    # Run the help menu
-    if options.user_name == None or options.help:
-        usage()
-    if options.user_name:
-        options.help = None
-
-    with open("sites.json") as config:
-        sites = json.load(config)
-    return sites,options
+    exit(-1)
