@@ -14,15 +14,17 @@ def site_lookup():
       req = requests.get(url, headers={"User-Agent":choice(UA)},allow_redirects=False)
       if req.status_code == 200:
           matched_sites[site] = url
-      if OPTIONS.verbose:
-        print(f"[*] {site}:\t{url}")
+          print(f"[*] {site}:\t{url}")
+      if OPTIONS.verbose and req.status_code != 200:
+        print(f"[-] {site}:\t{url}")
     except requests.exceptions.SSLError:
       if OPTIONS.verbose:
-        print(f"[!]{url} -- requests.exceptions.SSLError")
+        print(f"[!]{url} -- SSL Error")
     
 
 # Logging
 def site_log():
+  print("\n========== Active sites ==========")
   for index in matched_sites:
     print(f"{index}:\t{matched_sites[index]}")
     if OPTIONS.file_name:
