@@ -59,7 +59,6 @@ class Search_Engine():
         count = 0
         for i in range(self.greedy):
             count += 1
-            #print(f"[*] Gathering links: [{'#'*count}{' '*(self.greedy-count)}]")
             print(f"[*] Gathering links: [{'#'*count}{' '*(self.greedy-count)}]", end='\r')
             self.main_process()
             for link in self.process_collected_data():
@@ -70,10 +69,13 @@ class Search_Engine():
     def clean_and_run(self):
         print(search_engine_banner)
         arr = self.gather_more()
+        trash = []
         for link in arr:
             if ("google" in link) or ("bing" in link):
-                arr.remove(link)
-        
+                trash.append(link)
+        for link in trash:
+            arr.remove(link)
+
         print("\n\n============= Links found =============")
         for i in arr:
             print(i)
