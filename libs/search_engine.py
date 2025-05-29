@@ -1,24 +1,26 @@
-"""
+# Search engine crawler, returns links that are most likely related to the user
 
-Search engine crawler, returns links that are most likely related to the user
-
-"""
 from libs.resources import *
 
-# Class the represents the search engine itself and does all the querying
 class Search_Engine():
+    """
+    Class the represents the search engine itself and does all the querying
+    """
     def __init__(self,OPTIONS):
         self.options = OPTIONS
         self.bing = "https://www.bing.com/search?q={}"
         self.google = "https://www.google.com/search?q={}"
         self.url_pattern = re.compile(r"https?://\S+")
-        self.greedy = 5 if self.options.count == None else int(self.options.count)
+        self.greedy = 15 if self.options.count == None else int(self.options.count)
         self.bing_elements = []
         self.google_elements = []
 
 
-    # Crawl and parse data
+    
     def main_process(self):
+        """
+        Crawl and parse data
+        """
         # GET data
         google_req = requests.get(self.google.format(self.options.real_name),headers={"User-Agent":random.choice(USER_AGENTS)})
         bing_req = requests.get(self.bing.format(self.options.real_name),headers={"User-Agent":random.choice(USER_AGENTS)})
@@ -37,8 +39,10 @@ class Search_Engine():
         
 
 
-    # Process data that has been collected and add it to a collective
     def process_collected_data(self):
+        """
+        Process data that has been collected and add it to a collective
+        """
         href_arr = []
         for g_elem, b_elem in zip(self.google_elements,self.bing_elements):
             g_elem = list(set(g_elem))
@@ -53,8 +57,10 @@ class Search_Engine():
                     
         return list(set(href_arr))
 
-    # Run the class a few times to get as many links as possible
     def gather_more(self):
+        """
+        Run the class a few times to get as many links as possible
+        """
         greedy_arr = []
         count = 0
         for i in range(self.greedy):
@@ -65,8 +71,10 @@ class Search_Engine():
                 greedy_arr.append(link)
         return list(set(greedy_arr))
 
-    # Clean all data and finalise the tasks
     def clean_and_run(self):
+        """
+        Clean all data and finalise the tasks
+        """
         print(search_engine_banner)
         arr = self.gather_more()
         trash = []

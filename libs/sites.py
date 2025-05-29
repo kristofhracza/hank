@@ -1,23 +1,27 @@
-"""
+# URL crawler, look at different social sites and checks whether the username is present
 
-URL crawler, look at different social sites and checks whether the username is present
-
-"""
 from libs.resources import *
 
 class Binoculars():
+    """
+    Look up username on sites
+    """
     def __init__(self,OPTIONS):
         self.options = OPTIONS
         self.sites = {}
         self.matched_sites = {}
 
-    # Load site URLs from the JSON file
     def read_sites(self):
+        """
+        Load site URLs from the JSON file
+        """
         with open("sites.json") as config:
             self.sites = json.load(config)
 
-    # Look up sites
     def site_lookup(self):
+        """
+        Look up sites
+        """
         for site in self.sites:
             url = self.sites[site].format(self.options.user_name)
             try:
@@ -33,8 +37,10 @@ class Binoculars():
             except:
                 print(f"[-] {site}: {url}")
 
-    # Log sites that have been found
     def site_log(self):
+        """
+        Log sites that have been found
+        """
         if len(self.matched_sites) > 0:
             print("\n============= Active links =============")
             for index in self.matched_sites:

@@ -21,14 +21,15 @@ python hank.py -u "johndoe" -r "John Doe bigjohnny421 johndoe"
 ## Search engine crawling
 By giving multiple names under which the target is know, the script will search for those partcular words in the specified search engine.
 
-### To-Do list
-- Add more search engines
 
 ## Site lookup
 Integrated into this *hank* is the old binoculars tool.
 
 It will check sites for the presence of a username.
 
-### To-Do list
-- Fix false positive / negatives
-- Add new site list processor an system
+## To-Dos
+- Finally fix the false flags on all sites
+- Make the crawler more effective
+- Add more search engines
+- Add proxies
+- Create GUI

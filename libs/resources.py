@@ -1,10 +1,10 @@
-"""
+# Sharing variables or helper functions
 
-Sharing variables or helper functions
 
-"""
-
-import requests, json, re, random
+import requests
+import json
+import re
+import random
 from bs4 import BeautifulSoup
 
 USER_AGENTS = [
